@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HVXZ TEAM</title>
+    <title>HVXZ Hub | Clean & Transparent Tools</title>
     <style>
         :root {
             --bg-dark: #0c0d0f;
@@ -35,6 +35,41 @@
             padding: 60px 20px;
             overflow-x: hidden;
             position: relative;
+        }
+
+        .LocaleInterface {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .LocaleTrigger {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .LocaleTrigger:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+        }
+
+        .LocaleTrigger.ActiveLocale {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
         .ambient-orb-1 {
@@ -290,55 +325,132 @@
     <div class="ambient-orb-1"></div>
     <div class="ambient-orb-2"></div>
 
+    <div class="LocaleInterface">
+        <button id="TriggerEn" class="LocaleTrigger ActiveLocale">English</button>
+        <button id="TriggerZh" class="LocaleTrigger">中文</button>
+    </div>
+
     <main class="hub-container">
         <header>
             <div class="trust-badge">
-                <span class="pulse-indicator"></span> Independent Deployment Index
+                <span class="pulse-indicator"></span>
+                <span data-i18n="BadgeText">Independent Deployment Index</span>
             </div>
-            <h1>HVXZ Central Infrastructure</h1>
-            <p>A transparent directory of personal engineering projects. Built with an absolute focus on minimal resource footprints, local processing sandboxes, and complete user autonomy. No telemetry, no background persistence.</p>
+            <h1 data-i18n="MainTitle">HVXZ Central Infrastructure</h1>
+            <p data-i18n="MainDesc">A transparent directory of personal engineering projects. Built with an absolute focus on minimal resource footprints, local processing sandboxes, and complete user autonomy. No telemetry, no background persistence.</p>
         </header>
 
         <section class="deck">
             <article class="deck-item">
                 <div class="item-meta">
-                    <h2 class="item-title">HVXZ SYSTEM CLEAR</h2>
-                    <span class="item-version">v3.5 Engine</span>
+                    <h2 class="item-title" data-i18n="C1Title">HVXZ SYSTEM CLEAR</h2>
+                    <span class="item-version" data-i18n="C1Badge">v3.5 Engine</span>
                 </div>
-                <p class="item-description">A precise system optimization utility built to scrub deeply buried temporary logs, delivery optimization caches, and redundant background junk. It safely reclaims storage volumes and optimizes system overhead by eliminating the hidden files that standard cleaners ignore.</p>
+                <p class="item-description" data-i18n="C1Desc">A precise system optimization utility built to scrub deeply buried temporary logs, delivery optimization caches, and redundant background junk. It safely reclaims storage volumes and optimizes system overhead by eliminating the hidden files that standard cleaners ignore.</p>
                 <div class="integrity-card">
-                    <div class="integrity-title">Security & Integrity Architecture</div>
-                    <p class="integrity-text">This tool performs only direct, on-demand file system operations inside transparent paths. It features zero network routing components and installs no resident services, keeping your system architecture pristine and untracked.</p>
+                    <div class="integrity-title" data-i18n="GlobalSecTitle">Security & Integrity Architecture</div>
+                    <p class="integrity-text" data-i18n="C1SecDesc">This tool performs only direct, on-demand file system operations inside transparent paths. It features zero network routing components and installs no resident services, keeping your system architecture pristine and untracked.</p>
                 </div>
-                <a href="https://h-s-c.vercel.app" class="trigger">Go to website</a>
+                <a href="https://h-s-c.vercel.app" class="trigger" data-i18n="GlobalBtn">Go to website</a>
             </article>
 
             <article class="deck-item">
                 <div class="item-meta">
-                    <h2 class="item-title">Roblox Script Hub</h2>
-                    <span class="item-version">Live Registry</span>
+                    <h2 class="item-title" data-i18n="C2Title">Roblox Script Hub</h2>
+                    <span class="item-version" data-i18n="C2Badge">Live Registry</span>
                 </div>
-                <p class="item-description">A high-speed delivery node for fully audited automation frameworks and environment configurations. Operating with a streamlined plain-text replication layer and switchable low-impact terminal layouts, it ensures rapid deployment into local execution layers.</p>
+                <p class="item-description" data-i18n="C2Desc">A high-speed delivery node for fully audited automation frameworks and environment configurations. Operating with a streamlined plain-text replication layer and switchable low-impact terminal layouts, it ensures rapid deployment into local execution layers.</p>
                 <div class="integrity-card">
-                    <div class="integrity-title">Security & Integrity Architecture</div>
-                    <p class="integrity-text">All script objects are transferred and maintained exclusively as raw, uncompiled plain text. This structure ensures that any script can be fully scrutinized line-by-line prior to local execution, eliminating risks of compiled malicious payloads.</p>
+                    <div class="integrity-title" data-i18n="GlobalSecTitle">Security & Integrity Architecture</div>
+                    <p class="integrity-text" data-i18n="C2SecDesc">All script objects are transferred and maintained exclusively as raw, uncompiled plain text. This structure ensures that any script can be fully scrutinized line-by-line prior to local execution, eliminating risks of compiled malicious payloads.</p>
                 </div>
-                <a href="https://hvxz-script.vercel.app" class="trigger">Go to website</a>
+                <a href="https://hvxz-script.vercel.app" class="trigger" data-i18n="GlobalBtn">Go to website</a>
             </article>
 
             <article class="deck-item">
                 <div class="item-meta">
-                    <h2 class="item-title">Character Detection</h2>
-                    <span class="item-version">Client Module</span>
+                    <h2 class="item-title" data-i18n="C3Title">Character Detection</h2>
+                    <span class="item-version" data-i18n="C3Badge">Client Module</span>
                 </div>
-                <p class="item-description">A streamlined real-time data stream metrics utility designed to evaluate string structures. It intercepts and tallies character, byte, and line boundaries instantly, with modular regex processing pipelines to exclude formatting whitespace or specific punctuation arrays.</p>
+                <p class="item-description" data-i18n="C3Desc">A streamlined real-time data stream metrics utility designed to evaluate string structures. It intercepts and tallies character, byte, and line boundaries instantly, with modular regex processing pipelines to exclude formatting whitespace or specific punctuation arrays.</p>
                 <div class="integrity-card">
-                    <div class="integrity-title">Security & Integrity Architecture</div>
-                    <p class="integrity-text">Execution occurs 100% inside your local browser memory pool. Text streams are never transferred to a remote host, written to persistent cloud layers, or exposed to external entities. Absolute data containment by design.</p>
+                    <div class="integrity-title" data-i18n="GlobalSecTitle">Security & Integrity Architecture</div>
+                    <p class="integrity-text" data-i18n="C3SecDesc">Execution occurs 100% inside your local browser memory pool. Text streams are never transferred to a remote host, written to persistent cloud layers, or exposed to external entities. Absolute data containment by design.</p>
                 </div>
-                <a href="https://h-c-c-d.vercel.app" class="trigger">Go to website</a>
+                <a href="https://h-c-c-d.vercel.app" class="trigger" data-i18n="GlobalBtn">Go to website</a>
             </article>
         </section>
     </main>
+
+    <script>
+        const LocalizationStream = {
+            en: {
+                BadgeText: "Independent Deployment Index",
+                MainTitle: "HVXZ Central Infrastructure",
+                MainDesc: "A transparent directory of personal engineering projects. Built with an absolute focus on minimal resource footprints, local processing sandboxes, and complete user autonomy. No telemetry, no background persistence.",
+                C1Title: "HVXZ SYSTEM CLEAR",
+                C1Badge: "v3.5 Engine",
+                C1Desc: "A precise system optimization utility built to scrub deeply buried temporary logs, delivery optimization caches, and redundant background junk. It safely reclaims storage volumes and optimizes system overhead by eliminating the hidden files that standard cleaners ignore.",
+                GlobalSecTitle: "Security & Integrity Architecture",
+                C1SecDesc: "This tool performs only direct, on-demand file system operations inside transparent paths. It features zero network routing components and installs no resident services, keeping your system architecture pristine and untracked.",
+                GlobalBtn: "Go to website",
+                C2Title: "Roblox Script Hub",
+                C2Badge: "Live Registry",
+                C2Desc: "A high-speed delivery node for fully audited automation frameworks and environment configurations. Operating with a streamlined plain-text replication layer and switchable low-impact terminal layouts, it ensures rapid deployment into local execution layers.",
+                C2SecDesc: "All script objects are transferred and maintained exclusively as raw, uncompiled plain text. This structure ensures that any script can be fully scrutinized line-by-line prior to local execution, eliminating risks of compiled malicious payloads.",
+                C3Title: "Character Detection",
+                C3Badge: "Client Module",
+                C3Desc: "A streamlined real-time data stream metrics utility designed to evaluate string structures. It intercepts and tallies character, byte, and line boundaries instantly, with modular regex processing pipelines to exclude formatting whitespace or specific punctuation arrays.",
+                C3SecDesc: "Execution occurs 100% inside your local browser memory pool. Text streams are never transferred to a remote host, written to persistent cloud layers, or exposed to external entities. Absolute data containment by design."
+            },
+            zh: {
+                BadgeText: "獨立部署指標",
+                MainTitle: "HVXZ 中央基礎設施",
+                MainDesc: "個人工程專案的透明目錄。以極致的最小資源佔用、本地處理沙盒以及完全的使用者自主性為核心打造。無遙測，無背景常駐服務。",
+                C1Title: "HVXZ SYSTEM CLEAR",
+                C1Badge: "v3.5 引擎",
+                C1Desc: "精準的系統優化公用程式，專為清除深層暫存日誌、傳遞優化快取與冗餘背景垃圾而打造。透過消除標準清理軟體忽略的隱藏檔案，安全地回收儲存磁區並優化系統負載。",
+                GlobalSecTitle: "安全與完整性架構",
+                C1SecDesc: "此工具僅在透明路徑內執行直接、依需的檔案系統操作。具備零網路路由元件且不安裝任何常駐服務，維持系統架構的純淨與不可追蹤性。",
+                GlobalBtn: "前往網站",
+                C2Title: "Roblox Script Hub",
+                C2Badge: "即時註冊表",
+                C2Desc: "專為經全面審計的自動化框架與環境配置設計的高速傳遞節點。以精簡的純文字複製層與可切換的低負載終端機佈局運行，確保快速部署至本地執行層。",
+                C2SecDesc: "所有腳本物件均專門以原始、未編譯的純文字形式傳輸與維護。此結構確保任何腳本在本地執行前皆可進行逐行審查，徹底消除編譯後惡意負載的風險。",
+                C3Title: "Character Detection",
+                C3Badge: "客戶端模組",
+                C3Desc: "精簡的即時數據流度量公用程式，專為評估字串結構而設計。立即攔截並計算字元、位元組與行數邊界，具備模組化的正規表達式處理管線以排除格式化空白或特定標點符號陣列。",
+                C3SecDesc: "執行過程 100% 發生在您的本地瀏覽器記憶體池中。文字流絕不會傳輸至遠端主機、寫入持久性雲端層或暴露給外部實體。在核心設計上達到絕對的數據封裝。"
+            }
+        };
+
+        const TriggerEn = document.getElementById('TriggerEn');
+        const TriggerZh = document.getElementById('TriggerZh');
+        const TranslationNodes = document.querySelectorAll('[data-i18n]');
+
+        function ExecuteTranslationPipeline(targetLocale) {
+            const CurrentDict = LocalizationStream[targetLocale];
+            
+            TranslationNodes.forEach(node => {
+                const LexiconKey = node.getAttribute('data-i18n');
+                if (CurrentDict[LexiconKey]) {
+                    node.textContent = CurrentDict[LexiconKey];
+                }
+            });
+
+            if (targetLocale === 'en') {
+                TriggerEn.classList.add('ActiveLocale');
+                TriggerZh.classList.remove('ActiveLocale');
+                document.documentElement.lang = 'en';
+            } else {
+                TriggerZh.classList.add('ActiveLocale');
+                TriggerEn.classList.remove('ActiveLocale');
+                document.documentElement.lang = 'zh-TW';
+            }
+        }
+
+        TriggerEn.addEventListener('click', () => ExecuteTranslationPipeline('en'));
+        TriggerZh.addEventListener('click', () => ExecuteTranslationPipeline('zh'));
+    </script>
 </body>
 </html>
