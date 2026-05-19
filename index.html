@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVXZ Ecosystem Hub</title>
+    <style>
+        :root {
+            --surface-ambient: #121212;
+            --surface-radial: #2a2a2a;
+            --glass-base: rgba(255, 255, 255, 0.02);
+            --glass-highlight: rgba(255, 255, 255, 0.06);
+            --glass-stroke: rgba(255, 255, 255, 0.08);
+            --text-primary: #e0e0e0;
+            --text-secondary: #8a8a8a;
+            --text-tertiary: #555555;
+            --radius-viewport: 32px;
+            --radius-component: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--surface-ambient);
+            background-image: radial-gradient(circle at 50% 0%, var(--surface-radial) 0%, var(--surface-ambient) 70%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .HubContainer {
+            width: 100%;
+            max-width: 1080px;
+            background: var(--glass-base);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-stroke);
+            border-radius: var(--radius-viewport);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .HubHeader {
+            text-align: center;
+            border-bottom: 1px solid var(--glass-stroke);
+            padding-bottom: 40px;
+        }
+
+        .HubHeader h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .HubHeader p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .ServiceRegistryGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .ServiceEntity {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-stroke);
+            border-radius: var(--radius-component);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ServiceEntity::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--glass-highlight) 0%, transparent 100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ServiceEntity:hover::before {
+            opacity: 1;
+        }
+
+        .ServiceEntity:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(20, 20, 20, 0.4);
+        }
+
+        .EntityHeader {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .EntityTitle {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .EntityVersion {
+            font-family: monospace;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        .EntityPayload {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .EntityTags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .Tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-stroke);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .ActionTrigger {
+            align-self: flex-start;
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--glass-stroke);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .ActionTrigger:hover {
+            background: var(--text-primary);
+            color: var(--surface-ambient);
+        }
+
+        @media (max-width: 768px) {
+            .HubContainer {
+                padding: 40px 24px;
+                border-radius: 20px;
+            }
+            .HubHeader h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="HubContainer">
+        <header class="HubHeader">
+            <h1>HVXZ Ecosystem</h1>
+            <p>Centralized documentation and access point for all official HVXZ operations, optimization protocols, and telemetry tools.</p>
+        </header>
+
+        <section class="ServiceRegistryGrid" id="RegistryMount"></section>
+    </main>
+
+    <script>
+        const HvxzRegistryState = [
+            {
+                id: 'sys-clear',
+                title: 'HVXZ SYSTEM CLEAR',
+                version: 'v3.5',
+                description: '進階 Windows 系統優化核心。專為極速打造，深度解析並清除系統深層的雜亂檔案、無效快取與暫存記錄。旨在釋放磁碟空間，確保作業系統維持最高效能與隱私安全。',
+                tags: ['Windows Optimization', 'Privacy', 'WPF Engine'],
+                endpoint: 'h-s-c.vercel.app'
+            },
+            {
+                id: 'script-hub',
+                title: 'Official Script Hub',
+                version: 'Stable',
+                description: '高階腳本管理與分發樞紐。提供即時更新的開發腳本（如 ESP 數據層與 God Mode 覆蓋腳本）。具備快速複製與暗黑/明亮終端機視覺切換功能，專為極致部署效率設計。',
+                tags: ['Lua Scripts', 'Data Execution', 'Deployment'],
+                endpoint: 'hvxz-script.vercel.app'
+            },
+            {
+                id: 'char-detect',
+                title: 'Character Detection',
+                version: 'Live',
+                description: '高精度字元流偵測器。即時攔截並統計文字輸入緩衝區的數據長度。內建進階的正則表達式過濾器（Regex Filter），可精確排除標點符號與換行符號，提供最乾淨的位元組與字元統計。',
+                tags: ['Telemetry', 'Text Stream', 'Regex Filter'],
+                endpoint: 'Local / Tooling'
+            }
+        ];
+
+        class RegistryRenderer {
+            constructor(mountNodeId, state) {
+                this.mountNode = document.getElementById(mountNodeId);
+                this.state = state;
+            }
+
+            compileTags(tagsArray) {
+                return tagsArray.map(tag => `<span class="Tag">${tag}</span>`).join('');
+            }
+
+            render() {
+                const fragment = document.createDocumentFragment();
+
+                this.state.forEach(service => {
+                    const node = document.createElement('article');
+                    node.className = 'ServiceEntity';
+                    
+                    node.innerHTML = `
+                        <div class="EntityHeader">
+                            <h2 class="EntityTitle">${service.title}</h2>
+                            <span class="EntityVersion">${service.version}</span>
+                        </div>
+                        <p class="EntityPayload">${service.description}</p>
+                        <div class="EntityTags">
+                            ${this.compileTags(service.tags)}
+                        </div>
+                        <button class="ActionTrigger" onclick="window.location.href='https://${service.endpoint}'">
+                            ACCESS CONSOLE
+                        </button>
+                    `;
+                    
+                    fragment.appendChild(node);
+                });
+
+                this.mountNode.appendChild(fragment);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const registry = new RegistryRenderer('RegistryMount', HvxzRegistryState);
+            registry.render();
+        });
+    </script>
+</body>
+</html>
