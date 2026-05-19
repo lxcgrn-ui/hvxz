@@ -1,274 +1,348 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+html_content = """<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HVXZ Ecosystem Hub</title>
+    <title>HVXZ Hub | Clean & Transparent Tools</title>
     <style>
         :root {
-            --surface-ambient: #121212;
-            --surface-radial: #2a2a2a;
-            --glass-base: rgba(255, 255, 255, 0.02);
-            --glass-highlight: rgba(255, 255, 255, 0.06);
-            --glass-stroke: rgba(255, 255, 255, 0.08);
-            --text-primary: #e0e0e0;
-            --text-secondary: #8a8a8a;
-            --text-tertiary: #555555;
-            --radius-viewport: 32px;
-            --radius-component: 16px;
+            --bg-dark: #0c0d0f;
+            --accent-glow: rgba(255, 255, 255, 0.02);
+            --card-bg: rgba(18, 20, 24, 0.65);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --card-border-hover: rgba(255, 255, 255, 0.18);
+            --text-main: #f1f3f5;
+            --text-muted: #9da4b0;
+            --text-subtle: #5c6370;
+            --radius-main: 24px;
+            --radius-inner: 16px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--surface-ambient);
-            background-image: radial-gradient(circle at 50% 0%, var(--surface-radial) 0%, var(--surface-ambient) 70%);
-            color: var(--text-primary);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
-        }
-
-        .HubContainer {
-            width: 100%;
-            max-width: 1080px;
-            background: var(--glass-base);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid var(--glass-stroke);
-            border-radius: var(--radius-viewport);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        .HubHeader {
-            text-align: center;
-            border-bottom: 1px solid var(--glass-stroke);
-            padding-bottom: 40px;
-        }
-
-        .HubHeader h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: 6px;
-            color: #ffffff;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .HubHeader p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .ServiceRegistryGrid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .ServiceEntity {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-stroke);
-            border-radius: var(--radius-component);
-            padding: 32px;
+            padding: 60px 20px;
+            overflow-x: hidden;
             position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
         }
 
-        .ServiceEntity::before {
-            content: '';
+        .ambient-orb-1 {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--glass-highlight) 0%, transparent 100%);
-            opacity: 0;
+            top: -15%;
+            left: -10%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 75%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: floatOrb1 20s ease-in-out infinite alternate;
             pointer-events: none;
         }
 
-        .ServiceEntity:hover::before {
-            opacity: 1;
+        .ambient-orb-2 {
+            position: absolute;
+            bottom: -20%;
+            right: -5%;
+            width: 65vw;
+            height: 65vw;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 75%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: floatOrb2 25s ease-in-out infinite alternate-reverse;
+            pointer-events: none;
         }
 
-        .ServiceEntity:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(20, 20, 20, 0.4);
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .EntityHeader {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
+        @keyframes floatOrb1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.05); }
         }
 
-        .EntityTitle {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
+        @keyframes floatOrb2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-40px, -50px) scale(1.1); }
         }
 
-        .EntityVersion {
-            font-family: monospace;
-            color: var(--text-tertiary);
+        .hub-container {
+            width: 100%;
+            max-width: 1040px;
+            background: var(--card-bg);
+            backdrop-filter: blur(45px);
+            -webkit-backdrop-filter: blur(45px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-main);
+            padding: 60px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 8px 18px;
+            border-radius: 40px;
             font-size: 0.85rem;
+            color: #ffffff;
+            margin-bottom: 28px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: border-color 0.3s ease;
         }
 
-        .EntityPayload {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            flex-grow: 1;
+        .trust-badge:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
-        .EntityTags {
+        .pulse-indicator {
+            width: 7px;
+            height: 7px;
+            background-color: #a0a5ad;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        .deck {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .deck-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-inner);
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .deck-item:nth-child(1) { animation-delay: 0.4s; }
+        .deck-item:nth-child(2) { animation-delay: 0.5s; }
+        .deck-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .deck-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--card-border-hover);
+            background: rgba(255, 255, 255, 0.025);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0px rgba(255, 255, 255, 0.04);
+        }
+
+        .item-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
         }
 
-        .Tag {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-stroke);
+        .item-title {
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .item-version {
+            font-size: 0.78rem;
+            font-family: monospace;
+            color: var(--text-subtle);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            background: rgba(255, 255, 255, 0.04);
             padding: 4px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .item-description {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 26px;
+        }
+
+        .integrity-card {
+            background: rgba(0, 0, 0, 0.18);
+            border-left: 3px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
+            margin-bottom: 28px;
+            transition: border-color 0.3s ease;
+        }
+
+        .deck-item:hover .integrity-card {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .integrity-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
             text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
         }
 
-        .ActionTrigger {
-            align-self: flex-start;
+        .integrity-text {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--glass-stroke);
-            padding: 12px 24px;
+            color: #ffffff;
+            border: 1px solid var(--card-border);
+            padding: 12px 26px;
             border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.92rem;
+            font-weight: 500;
+            text-decoration: none;
             cursor: pointer;
-            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
-        .ActionTrigger:hover {
-            background: var(--text-primary);
-            color: var(--surface-ambient);
+        .trigger:hover {
+            background: #ffffff;
+            color: var(--bg-dark);
+            border-color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
         }
 
         @media (max-width: 768px) {
-            .HubContainer {
+            .hub-container {
                 padding: 40px 24px;
-                border-radius: 20px;
             }
-            .HubHeader h1 {
-                font-size: 2rem;
+            header h1 {
+                font-size: 2.2rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="ambient-orb-1"></div>
+    <div class="ambient-orb-2"></div>
 
-    <main class="HubContainer">
-        <header class="HubHeader">
-            <h1>HVXZ Ecosystem</h1>
-            <p>Centralized documentation and access point for all official HVXZ operations, optimization protocols, and telemetry tools.</p>
+    <main class="hub-container">
+        <header>
+            <div class="trust-badge">
+                <span class="pulse-indicator"></span> Independent Deployment Index
+            </div>
+            <h1>HVXZ Central Infrastructure</h1>
+            <p>A transparent directory of personal engineering projects. Built with an absolute focus on minimal resource footprints, local processing sandboxes, and complete user autonomy. No telemetry, no background persistence.</p>
         </header>
 
-        <section class="ServiceRegistryGrid" id="RegistryMount"></section>
+        <section class="deck">
+            <article class="deck-item">
+                <div class="item-meta">
+                    <h2 class="item-title">HVXZ SYSTEM CLEAR</h2>
+                    <span class="item-version">v3.5 Engine</span>
+                </div>
+                <p class="item-description">A precise system optimization utility built to scrub deeply buried temporary logs, delivery optimization caches, and redundant background junk. It safely reclaims storage volumes and optimizes system overhead by eliminating the hidden files that standard cleaners ignore.</p>
+                <div class="integrity-card">
+                    <div class="integrity-title">Security & Integrity Architecture</div>
+                    <p class="integrity-text">This tool performs only direct, on-demand file system operations inside transparent paths. It features zero network routing components and installs no resident services, keeping your system architecture pristine and untracked.</p>
+                </div>
+                <a href="https://h-s-c.vercel.app" class="trigger">Launch Console</a>
+            </article>
+
+            <article class="deck-item">
+                <div class="item-meta">
+                    <h2 class="item-title">Official Script Hub</h2>
+                    <span class="item-version">Live Registry</span>
+                </div>
+                <p class="item-description">A high-speed delivery node for fully audited automation frameworks and environment configurations. Operating with a streamlined plain-text replication layer and switchable low-impact terminal layouts, it ensures rapid deployment into local execution layers.</p>
+                <div class="integrity-card">
+                    <div class="integrity-title">Security & Integrity Architecture</div>
+                    <p class="integrity-text">All script objects are transferred and maintained exclusively as raw, uncompiled plain text. This structure ensures that any script can be fully scrutinized line-by-line prior to local execution, eliminating risks of compiled malicious payloads.</p>
+                </div>
+                <a href="https://hvxz-script.vercel.app" class="trigger">Access Node</a>
+            </article>
+
+            <article class="deck-item">
+                <div class="item-meta">
+                    <h2 class="item-title">Character Detection</h2>
+                    <span class="item-version">Client Module</span>
+                </div>
+                <p class="item-description">A streamlined real-time data stream metrics utility designed to evaluate string structures. It intercepts and tallies character, byte, and line boundaries instantly, with modular regex processing pipelines to exclude formatting whitespace or specific punctuation arrays.</p>
+                <div class="integrity-card">
+                    <div class="integrity-title">Security & Integrity Architecture</div>
+                    <p class="integrity-text">Execution occurs 100% inside your local browser memory pool. Text streams are never transferred to a remote host, written to persistent cloud layers, or exposed to external entities. Absolute data containment by design.</p>
+                </div>
+                <button class="trigger" style="width: fit-content;">Run Sandbox</button>
+            </article>
+        </section>
     </main>
-
-    <script>
-        const HvxzRegistryState = [
-            {
-                id: 'sys-clear',
-                title: 'HVXZ SYSTEM CLEAR',
-                version: 'v3.5',
-                description: '進階 Windows 系統優化核心。專為極速打造，深度解析並清除系統深層的雜亂檔案、無效快取與暫存記錄。旨在釋放磁碟空間，確保作業系統維持最高效能與隱私安全。',
-                tags: ['Windows Optimization', 'Privacy', 'WPF Engine'],
-                endpoint: 'h-s-c.vercel.app'
-            },
-            {
-                id: 'script-hub',
-                title: 'Official Script Hub',
-                version: 'Stable',
-                description: '高階腳本管理與分發樞紐。提供即時更新的開發腳本（如 ESP 數據層與 God Mode 覆蓋腳本）。具備快速複製與暗黑/明亮終端機視覺切換功能，專為極致部署效率設計。',
-                tags: ['Lua Scripts', 'Data Execution', 'Deployment'],
-                endpoint: 'hvxz-script.vercel.app'
-            },
-            {
-                id: 'char-detect',
-                title: 'Character Detection',
-                version: 'Live',
-                description: '高精度字元流偵測器。即時攔截並統計文字輸入緩衝區的數據長度。內建進階的正則表達式過濾器（Regex Filter），可精確排除標點符號與換行符號，提供最乾淨的位元組與字元統計。',
-                tags: ['Telemetry', 'Text Stream', 'Regex Filter'],
-                endpoint: 'h-c-c-d.vercel.app'
-            }
-        ];
-
-        class RegistryRenderer {
-            constructor(mountNodeId, state) {
-                this.mountNode = document.getElementById(mountNodeId);
-                this.state = state;
-            }
-
-            compileTags(tagsArray) {
-                return tagsArray.map(tag => `<span class="Tag">${tag}</span>`).join('');
-            }
-
-            render() {
-                const fragment = document.createDocumentFragment();
-
-                this.state.forEach(service => {
-                    const node = document.createElement('article');
-                    node.className = 'ServiceEntity';
-                    
-                    node.innerHTML = `
-                        <div class="EntityHeader">
-                            <h2 class="EntityTitle">${service.title}</h2>
-                            <span class="EntityVersion">${service.version}</span>
-                        </div>
-                        <p class="EntityPayload">${service.description}</p>
-                        <div class="EntityTags">
-                            ${this.compileTags(service.tags)}
-                        </div>
-                        <button class="ActionTrigger" onclick="window.location.href='https://${service.endpoint}'">
-                            ACCESS CONSOLE
-                        </button>
-                    `;
-                    
-                    fragment.appendChild(node);
-                });
-
-                this.mountNode.appendChild(fragment);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const registry = new RegistryRenderer('RegistryMount', HvxzRegistryState);
-            registry.render();
-        });
-    </script>
 </body>
-</html>
+</html>"""
+
+with open("HvxzEcosystemHub-v2.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+print("File written successfully.")
